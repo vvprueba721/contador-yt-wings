@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <title>BTS - MV</title>
 
-<link rel="icon" href="icono.jpg" sizes="32x32">
-<link rel="icon" href="icono.jpg" sizes="192x192">
+<link rel="icon" href="icono.png" sizes="32x32">
+<link rel="icon" href="icono.png" sizes="192x192">
 
 <style>
 body {
@@ -15,7 +15,7 @@ body {
     color: white;
     text-align: center;
 }
-    
+
 header {
     background: #7132CA;
     padding: 20px;
@@ -41,11 +41,11 @@ select {
 }
 
 .card {
-    background: #a584da;
+    background: #A584DA;
     border-radius: 8px;
     padding: 6px;
     width: 290px;
-    box-shadow: 0 0 8px rgba(106, 13, 173, 0.4);
+    box-shadow: 0 0 8px rgba(181, 126, 220, 0.5);
     transition: transform 0.2s ease;
 }
 
@@ -55,7 +55,7 @@ select {
 
 .card h2 {
     font-size: 13px;
-    color: #000000;
+    color: white;
     margin: 4px 0;
 }
 
@@ -64,6 +64,21 @@ iframe {
     height: 110px;
     border: none;
     border-radius: 6px;
+}
+
+button {
+    background: #6A0DAD;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 20px;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #8A2BE2;
 }
 </style>
 </head>
@@ -78,13 +93,25 @@ iframe {
 </select>
 
 <div id="contenedorVideos"></div>
+<button id="btnVerMas" style="display:none;">Ver más</button>
 
 <script>
 
-//MVs
 const videosBTS = {
     "2013": [
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
+        { titulo: "No More Dream", id: "3Y_Eiyg4bfk" },
+        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
+        { titulo: "No More Dream", id: "3Y_Eiyg4bfk" },
+        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
+        { titulo: "No More Dream", id: "3Y_Eiyg4bfk" },
+        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
+        { titulo: "No More Dream", id: "3Y_Eiyg4bfk" },
+        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
+        { titulo: "No More Dream", id: "3Y_Eiyg4bfk" },
+        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
+        { titulo: "No More Dream", id: "3Y_Eiyg4bfk" },
+        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
+        { titulo: "No More Dream", id: "3Y_Eiyg4bfk" },
         { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" }
     ],
     "2014": [
@@ -99,8 +126,14 @@ const videosBTS = {
 };
 
 const selector = document.getElementById("selectorAño");
+const contenedor = document.getElementById("contenedorVideos");
+const btnVerMas = document.getElementById("btnVerMas");
 
-// Generar años 
+let videosActuales = [];
+let indiceActual = 0;
+const cantidadPorCarga = 10;
+
+// Generar años
 for (let año = 2013; año <= 2026; año++) {
     const option = document.createElement("option");
     option.value = año;
@@ -109,31 +142,39 @@ for (let año = 2013; año <= 2026; año++) {
 }
 
 selector.addEventListener("change", function() {
-    mostrarVideos(this.value);
-});
-
-function mostrarVideos(año) {
-
-    const contenedor = document.getElementById("contenedorVideos");
     contenedor.innerHTML = "";
-
-    if (videosBTS[año]) {
-        videosBTS[año].forEach(video => {
-            const card = document.createElement("div");
-            card.className = "card";
-            const titulo = document.createElement("h2");
-            titulo.textContent = video.titulo;
-            const iframe = document.createElement("iframe");
-            iframe.src = `https://socialcounts.org/youtube-video-live-view-count/${video.id}/embed`;
-            card.appendChild(titulo);
-            card.appendChild(iframe);
-            contenedor.appendChild(card);
-        });
+    indiceActual = 0;
+    videosActuales = videosBTS[this.value] || [];
+    if (videosActuales.length > 0) {
+        mostrarMasVideos();
+        btnVerMas.style.display = "inline-block";
     } else {
         contenedor.innerHTML = "<p>No hay videos registrados para este año.</p>";
+        btnVerMas.style.display = "none";
+    }
+});
+
+btnVerMas.addEventListener("click", mostrarMasVideos);
+
+function mostrarMasVideos() {
+    const siguientes = videosActuales.slice(indiceActual, indiceActual + cantidadPorCarga);
+    siguientes.forEach(video => {
+        const card = document.createElement("div");
+        card.className = "card";
+        const titulo = document.createElement("h2");
+        titulo.textContent = video.titulo;
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://socialcounts.org/youtube-video-live-view-count/${video.id}/embed`;
+        card.appendChild(titulo);
+        card.appendChild(iframe);
+        contenedor.appendChild(card);
+    });
+    indiceActual += cantidadPorCarga;
+    if (indiceActual >= videosActuales.length) {
+        btnVerMas.style.display = "none";
     }
 }
-
+    
 </script>
 </body>
 </html>
