@@ -26,20 +26,40 @@ select {
     margin: 20px;
     border-radius: 5px;
     border: none;
-    outline: none;
 }
 
 #contenedorVideos {
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+    
+.card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 15px;
+    width: 320px;
+    box-shadow: 0 0 15px rgba(106, 13, 173, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card h2 {
+    font-size: 18px;
+    color: #b57edc;
+    margin-bottom: 10px;
 }
 
 iframe {
-    width: 90%;
-    max-width: 800px;
-    height: 250px;
-    margin: 20px auto;
-    display: block;
+    width: 100%;
+    height: 200px;
     border: none;
+    border-radius: 8px;
 }
 </style>
 </head>
@@ -49,7 +69,7 @@ iframe {
 💜 BTS - Visitas en YT 💜
 </header>
 
-<select id="selectorAño" onchange="mostrarVideos()">
+<select id="selectorAño">
     <option value="">Selecciona un año</option>
 </select>
 
@@ -61,7 +81,7 @@ iframe {
 const videosBTS = {
     "2013": [
         { titulo: "No More Dream", id: "3Y_Eiyg4bfk" },
-        { titulo: "We Are Bulletproof Pt2", id: "gqhWHy0rrtM" }
+        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" }
     ],
     "2014": [
         { titulo: "Boy In Luv", id: "LHHjp3IMjMk" }
@@ -74,36 +94,41 @@ const videosBTS = {
     ]
 };
 
-
 const selector = document.getElementById("selectorAño");
 
-for (let año = 2013; año <= 2027; año++) {
+for (let año = 2013; año <= 2026; año++) {
     const option = document.createElement("option");
     option.value = año;
     option.textContent = año;
     selector.appendChild(option);
 }
 
-function mostrarVideos() {
+selector.addEventListener("change", function() {
+    mostrarVideos(this.value);
+});
 
-    const año = selector.value;
+function mostrarVideos(año) {
+
     const contenedor = document.getElementById("contenedorVideos");
-
-    contenedor.innerHTML = ""; 
+    contenedor.innerHTML = "";
 
     if (videosBTS[año]) {
 
         videosBTS[año].forEach(video => {
 
+            const card = document.createElement("div");
+            card.className = "card";
+
             const titulo = document.createElement("h2");
             titulo.textContent = video.titulo;
-            titulo.style.color = "#b57edc";
 
             const iframe = document.createElement("iframe");
             iframe.src = `https://socialcounts.org/youtube-video-live-view-count/${video.id}/embed`;
 
-            contenedor.appendChild(titulo);
-            contenedor.appendChild(iframe);
+            card.appendChild(titulo);
+            card.appendChild(iframe);
+
+            contenedor.appendChild(card);
         });
 
     } else {
@@ -112,6 +137,5 @@ function mostrarVideos() {
 }
 
 </script>
-
 </body>
 </html>
