@@ -16,6 +16,15 @@ body {
     text-align: center;
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("https://www.transparenttextures.com/patterns/noise.png");
+    opacity: 0.05;
+}
+
 header {
     background: #6a0dad;
     padding: 20px;
@@ -44,7 +53,7 @@ select {
     background: #a584da;
     border-radius: 8px;
     padding: 6px;
-    width: 260px;
+    width: 270px;
     box-shadow: 0 0 8px rgba(106, 13, 173, 0.4);
     transition: transform 0.2s ease;
 }
@@ -55,7 +64,7 @@ select {
 
 .card h2 {
     font-size: 13px;
-    color: #d8b4ff;
+    color: #000000;
     margin: 4px 0;
 }
 
