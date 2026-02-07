@@ -85,24 +85,6 @@ iframe {
 const videosBTS = {
     "2013": [
         { titulo: "No More Dream", id: "rBG5L7UsUxA" },
-        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
-        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
-        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
-        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
-        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
-        { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
-                { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
-                { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
-                { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" },
-        { titulo: "No More Dream", id: "rBG5L7UsUxA" },
         { titulo: "We Are Bulletproof Pt.2", id: "gqhWHy0rrtM" }
     ],
     "2014": [
@@ -136,24 +118,17 @@ function mostrarVideos(año) {
     contenedor.innerHTML = "";
 
     if (videosBTS[año]) {
-
         videosBTS[año].forEach(video => {
-
             const card = document.createElement("div");
             card.className = "card";
-
             const titulo = document.createElement("h2");
             titulo.textContent = video.titulo;
-
             const iframe = document.createElement("iframe");
             iframe.src = `https://socialcounts.org/youtube-video-live-view-count/${video.id}/embed`;
-
             card.appendChild(titulo);
             card.appendChild(iframe);
-
             contenedor.appendChild(card);
         });
-
     } else {
         contenedor.innerHTML = "<p>No hay videos registrados para este año.</p>";
     }
