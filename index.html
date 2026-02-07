@@ -131,7 +131,7 @@ const btnVerMas = document.getElementById("btnVerMas");
 
 let videosActuales = [];
 let indiceActual = 0;
-const cantidadPorCarga = 10;
+const cantidadPorCarga = 12;
 
 // Generar años
 for (let año = 2013; año <= 2026; año++) {
@@ -149,7 +149,7 @@ selector.addEventListener("change", function() {
         mostrarMasVideos();
         btnVerMas.style.display = "inline-block";
     } else {
-        contenedor.innerHTML = "<p>No hay videos registrados para este año.</p>";
+        contenedor.innerHTML = "<p>No hay videos registrados para este año</p>";
         btnVerMas.style.display = "none";
     }
 });
