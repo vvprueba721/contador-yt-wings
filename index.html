@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>BTS - Contador de Visitas</title>
+<title>BTS - MV</title>
 
 <style>
 body {
@@ -29,8 +29,7 @@ select {
     outline: none;
 }
 
-.video-container {
-    display: none;
+#contenedorVideos {
     margin-top: 20px;
 }
 
@@ -40,66 +39,77 @@ iframe {
     height: 250px;
     margin: 20px auto;
     display: block;
-    border: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-
-h2 {
-    margin-top: 30px;
-    color: #b57edc;
+    border: none;
 }
 </style>
 </head>
 <body>
 
 <header>
-💜 BTS - Visitas en Tiempo Real 💜
+💜 BTS - Visitas en YT 💜
 </header>
 
-<select onchange="mostrarAño(this.value)">
+<select id="selectorAño" onchange="mostrarVideos()">
     <option value="">Selecciona un año</option>
-    <option value="2013">2013</option>
-    <option value="2014">2014</option>
-    <option value="2015">2015</option>
-    <option value="2016">2016</option>
-    <option value="2017">2017</option>
-    <option value="2018">2018</option>
-    <option value="2019">2019</option>
-    <option value="2020">2020</option>
-    <option value="2021">2021</option>
-    <option value="2022">2022</option>
-    <option value="2023">2023</option>
-    <option value="2024">2024</option>
-    <option value="2025">2025</option>
-    <option value="2026">2026</option>
 </select>
 
-<!-- EJEMPLO 2013 -->
-<div id="2013" class="video-container">
-    <h2>2013</h2>
-    <iframe src="https://socialcounts.org/youtube-video-live-view-count/3Y_Eiyg4bfk/embed"></iframe>
-</div>
-
-<!-- EJEMPLO 2020 -->
-<div id="2020" class="video-container">
-    <h2>2020</h2>
-    <iframe src="https://socialcounts.org/youtube-video-live-view-count/gdZLi9oWNZg/embed"></iframe>
-</div>
+<div id="contenedorVideos"></div>
 
 <script>
-function mostrarAño(año) {
 
-    const contenedores = document.querySelectorAll('.video-container');
-    contenedores.forEach(div => div.style.display = "none");
+// MV
+const videosBTS = {
+    "2013": [
+        { titulo: "No More Dream", id: "3Y_Eiyg4bfk" }
+    ],
+    "2014": [
+        { titulo: "Boy In Luv", id: "LHHjp3IMjMk" }
+    ],
+    "2016": [
+        { titulo: "Blood Sweat & Tears", id: "hmE9f-TEutc" }
+    ],
+    "2020": [
+        { titulo: "Dynamite", id: "gdZLi9oWNZg" }
+    ]
+};
 
-    if (año) {
-        const seleccionado = document.getElementById(año);
-        if (seleccionado) {
-            seleccionado.style.display = "block";
-        }
+
+const selector = document.getElementById("selectorAño");
+
+for (let año = 2013; año <= 2026; año++) {
+    const option = document.createElement("option");
+    option.value = año;
+    option.textContent = año;
+    selector.appendChild(option);
+}
+
+function mostrarVideos() {
+
+    const año = selector.value;
+    const contenedor = document.getElementById("contenedorVideos");
+
+    contenedor.innerHTML = ""; 
+
+    if (videosBTS[año]) {
+
+        videosBTS[año].forEach(video => {
+
+            const titulo = document.createElement("h2");
+            titulo.textContent = video.titulo;
+            titulo.style.color = "#b57edc";
+
+            const iframe = document.createElement("iframe");
+            iframe.src = `https://socialcounts.org/youtube-video-live-view-count/${video.id}/embed`;
+
+            contenedor.appendChild(titulo);
+            contenedor.appendChild(iframe);
+        });
+
+    } else {
+        contenedor.innerHTML = "<p>No hay videos registrados para este año</p>";
     }
 }
+
 </script>
 
 </body>
