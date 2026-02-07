@@ -1,31 +1,103 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Contador YouTube en Vivo</title>
+<title>BTS - YT </title>
+
 <style>
 body {
-    background: #111;
-    color: white;
+    margin: 0;
     font-family: Arial, sans-serif;
+    background: #0f0f0f;
+    color: white;
     text-align: center;
 }
-iframe {
+
+header {
+    background: #6a0dad;
+    padding: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+.video-container {
+    display: none;
     margin-top: 20px;
+}
+
+iframe {
+    width: 90%;
+    max-width: 800px;
+    height: 250px;
+    margin: 20px auto;
+    display: block;
     border: none;
+}
+
+h2 {
+    margin-top: 30px;
+    color: #b57edc;
 }
 </style>
 </head>
 <body>
 
-<h1>Visitas en tiempo real</h1>
+<header>
+💜 BTS - MV 💜
+</header>
 
-<iframe 
-    src="https://socialcounts.org/youtube-video-live-view-count/gdZLi9oWNZg/embed"
-    width="800"
-    height="300"
-    allowfullscreen>
-</iframe>
+<select onchange="mostrarAño(this.value)">
+    <option value="2013">2013</option>
+    <option value="2014">2014</option>
+    <option value="2020">2020</option>
+</select>
+
+<!-- 2013 -->
+<div id="2013" class="video-container">
+    <h2>2013</h2>
+
+    <iframe src="https://socialcounts.org/youtube-video-live-view-count/3Y_Eiyg4bfk/embed"></iframe>
+    <!-- No More Dream -->
+
+</div>
+
+<!-- 2014 -->
+<div id="2014" class="video-container">
+    <h2>2014</h2>
+
+    <iframe src="https://socialcounts.org/youtube-video-live-view-count/LHHjp3IMjMk/embed"></iframe>
+    <!-- Boy In Luv -->
+
+</div>
+
+<!-- 2020 -->
+<div id="2020" class="video-container">
+    <h2>2020</h2>
+
+    <iframe src="https://socialcounts.org/youtube-video-live-view-count/gdZLi9oWNZg/embed"></iframe>
+    <!-- Dynamite -->
+
+</div>
+
+<script>
+function mostrarAño(año) {
+
+    const contenedores = document.querySelectorAll('.video-container');
+    contenedores.forEach(div => div.style.display = "none");
+
+    if (año) {
+        document.getElementById(año).style.display = "block";
+    }
+}
+</script>
 
 </body>
 </html>
