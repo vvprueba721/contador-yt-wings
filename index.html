@@ -183,8 +183,12 @@ selector.addEventListener("change", function() {
     indiceActual = 0;
     videosActuales = videosBTS[this.value] || [];
     if (videosActuales.length > 0) {
-        mostrarMasVideos();
+    mostrarMasVideos();
+       if (videosActuales.length > cantidadPorCarga) {
         btnVerMas.style.display = "inline-block";
+       } else {
+        btnVerMas.style.display = "none";
+    }
     } else {
         contenedor.innerHTML = "<p>No hay videos registrados para este año</p>";
         btnVerMas.style.display = "none";
